@@ -75,7 +75,7 @@ exports.handler = function (lookup, modify, errback) {
       var req, dest = lookup(req = parse(header))
       var outs = 
         first.pipe(
-          net.connect(dest.port, dest.host)
+          dest.path ? net.connect(dest.path) : net.connect(dest.port, dest.host)
           .on('error', function (err) { //will this be gc'd?
             if(errback) errback(err, dest)
             else console.error(err)
