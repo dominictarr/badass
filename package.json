@@ -1,0 +1,10 @@
+{ "name": "badass"
+, "version": "0.0.0"
+, "description": "the proxy that breaks all the rules"
+, "homepage": "http://github.com/dominictarr/badass"
+, "repository": 
+  { "type": "git"
+  , "url": "https://github.com/dominictarr/badass.git" }
+, "dependencies": {}
+, "devDependencies": {}
+, "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)" }
