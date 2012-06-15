@@ -100,3 +100,6 @@ you should probably set `dest.sticky` to `sticky` unless that server has crashed
 `errback` is as above, but of course `dest` will now also have the `sticky` property. You may want to use the `errback` function so you can detect when a server is down, and proxy future requests to a different instance.
 (but that is your responsibility)
 
+## Licence
+
+MIT / Apache2

@@ -11,4 +11,6 @@
 , "devDependencies": {
   "request": "~2.9"
 }
-, "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)" }
+, "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)" 
+, "license": ["MIT", "Apache2"]
+}
