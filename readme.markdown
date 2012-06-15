@@ -31,6 +31,11 @@ badass.createServer(function (head) {
 
 > note that you must return the proxy dest synchronously. so you need to already know where you are going to send the request - i.e. you must have that data already in memory.
 
+### unix sockets
+
+`dest` may be of the form `{path: PATH_TO_SOCKET}` and badass will proxy
+to a server listening on a unix socket at `PATH_TO_SOCKET`
+
 ###Sticky Sessions
 
 use a cookie to remember to send additional requests to the same server. Since a browser will first request the html page, then all it's components, if we write the cookie on the first request, the rest should all end up in the same place.
