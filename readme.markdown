@@ -16,13 +16,13 @@ If the client and server are well behaved, this should be okay. http isn't ment 
 
 ###Simple Load Balancer
 
-NOTE: `req` the first arg is not the same api as a nodejs `ServerRequest` (see below)
+NOTE: `head` (the first arg) is not the same api as a nodejs `ServerRequest` (see below)
 
 ``` js
 var badass = require('badass')
 
-badass.createServer(function (req) {
-  //check req.headers.host
+badass.createServer(function (head) {
+  //check head.headers.host
   //return port, host of proxy destination.
   return {port: PORT, host: HOST}
 }).listen(80)
