@@ -5,6 +5,10 @@
 , "repository": 
   { "type": "git"
   , "url": "https://github.com/dominictarr/badass.git" }
-, "dependencies": {}
-, "devDependencies": {}
+, "dependencies": {
+  "event-stream" : "~2"
+}
+, "devDependencies": {
+  "request": "~2.9"
+}
 , "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)" }
