@@ -9,8 +9,10 @@
   "event-stream" : "~2"
 }
 , "devDependencies": {
-  "request": "~2.9"
-}
+    "request": "~2.9"
+  , "tap": "~2.5" }
+, "scripts": {
+    "test": "tap test/" }
 , "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)" 
 , "license": ["MIT", "Apache2"]
 }
