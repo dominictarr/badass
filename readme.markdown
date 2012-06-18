@@ -68,8 +68,9 @@ create a basic proxy. function signatures are `lookup (requestHead)`,
 
 `modify` is called before writing the response back to the client. it gives you an oppertunity to alter the response head.
 
-`errback` is called when a connection is dropped. `errback` is not called on http errors. badass is ignorant of http errors. 
-`errback` will be called with tcp errors, such as `ECONNREFUSED`
+`errback` is called when there is no server listening on the port you are trying to proxy to.
+so far, I have only managed to get `ECONNREFUSED`. 
+`errback` is not called on http errors. badass is ignorant of http errors. 
 
 ### head `//as passed to lookup, and modify`
 `head` is NOT the same as a nodejs http request, or response.
