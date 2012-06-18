@@ -91,8 +91,19 @@ exports.handler = function (lookup, modify, errback) {
             else console.error('server down', err, dest)
             //it would actually be possible to write a propper error response here
             //if errback returns a stream then 
-            if(maybe instanceof Stream)
+            if(maybe instanceof Stream) {
               maybe.pipe(con)
+              maybe.pipe(process.stderr, {end: false})
+              maybe.on('end', function () {
+              /*
+              force the stream to end,
+              despite that outs might not have emitted end.
+              this is only necessary in 0.6.x
+              because 0.7 does not keep a track of multiple pipes.
+              */
+              con.destroy()
+              })
+            }
             else
               con.destroy()
           })
@@ -104,10 +115,7 @@ exports.handler = function (lookup, modify, errback) {
           return stringify(res)
         }))
 
-        outs
-          .pipe(process.stderr, {end: false})
-        
-        outs  .pipe(con)
+        outs.pipe(con)
         return stringify(req)
     }))
   }
