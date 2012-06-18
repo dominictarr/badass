@@ -1,18 +1,29 @@
-{ "name": "badass"
-, "version": "0.1.1"
-, "description": "the proxy that breaks all the rules"
-, "homepage": "http://github.com/dominictarr/badass"
-, "repository": 
-  { "type": "git"
-  , "url": "https://github.com/dominictarr/badass.git" }
-, "dependencies": {
-  "event-stream" : "~2"
-}
-, "devDependencies": {
-    "request": "~2.9"
-  , "tap": "~2.5" }
-, "scripts": {
-    "test": "tap test/" }
-, "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)" 
-, "license": ["MIT", "Apache2"]
+{
+  "name": "badass",
+  "version": "0.2.0",
+  "description": "the proxy that breaks all the rules",
+  "homepage": "http://github.com/dominictarr/badass",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/badass.git"
+  },
+  "dependencies": {
+    "event-stream": "~2"
+  },
+  "devDependencies": {
+    "request": "~2.9",
+    "tap": "~2.5"
+  },
+  "scripts": {
+    "test": "tap test/"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (dominictarr.com)",
+  "license": [
+    "MIT",
+    "Apache2"
+  ],
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
 }
