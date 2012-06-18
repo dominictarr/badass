@@ -1,5 +1,6 @@
 var net = require('net')
 var es  = require('event-stream')
+var Stream = require('stream').Stream
 
 exports.createServer = function (lookup, modify, errback) {
   return net.createServer(exports.handler(lookup, modify, errback))
@@ -75,10 +76,25 @@ exports.handler = function (lookup, modify, errback) {
       var req, dest = lookup(req = parse(header))
       var outs = 
         first.pipe(
-          dest.path ? net.connect(dest.path) : net.connect(dest.port, dest.host)
+          (dest.path ? net.connect(dest.path) : net.connect(dest.port, dest.host))
           .on('error', function (err) { //will this be gc'd?
-            if(errback) errback(err, dest)
-            else console.error(err)
+            /*
+              this only gets called if there is a ECONNREFUSED
+              i.e. if there is no server where we've tried to proxy.
+              if the server or the client close/crash, it will not produce an error 
+              but will appear to close normally.
+
+              so: errback means that the server is down. 
+            */
+            var maybe
+            if(errback) maybe = errback(err, dest)
+            else console.error('server down', err, dest)
+            //it would actually be possible to write a propper error response here
+            //if errback returns a stream then 
+            if(maybe instanceof Stream)
+              maybe.pipe(con)
+            else
+              con.destroy()
           })
         )
       if(modify)
@@ -88,7 +104,10 @@ exports.handler = function (lookup, modify, errback) {
           return stringify(res)
         }))
 
-        outs.pipe(con)
+        outs
+          .pipe(process.stderr, {end: false})
+        
+        outs  .pipe(con)
         return stringify(req)
     }))
   }
