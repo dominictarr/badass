@@ -1,44 +1,30 @@
-var http = require('http')
 var request = require('request')
-var badass = require('..')
+
 var assert = require('assert')
-function rand () {
-  return ~~(1000 + Math.random()*40000)
-}
+var tap = require('./tap')
+var setup = require('./setup')
 
-var sPort = rand()
-var pPort = rand()
-
-var server = http.createServer(function (req, res) {
-  console.log('REQ', 'hello')
+setup(function (req, res) {
   res.end('hello')
-})
-var incoming, outgoing, _dest
-var proxy = badass.createServer(function lookup (req) {
-  incoming = true
-  console.log('REQ', req)
-  return _dest = {port: sPort, host: 'localhost', rand: Math.random()}
-}, function modify (res, dest) {
-  //optionally modify the response 
-  //header before sending back
-  //to client. for example, 
-  //add a cookie for sticky sessions.
-  outgoing = true
-  assert.strictEqual(dest, _dest)
-  console.log("RES", res, dest)
-})
-
-server.listen(sPort, function () {
-  proxy.listen(pPort, function () {
-    request.get('http://localhost:'+pPort, 
-      function (err, res, body) {
-        assert.equal(body, 'hello')
-        assert.ok(incoming, 'incoming')
-        assert.ok(outgoing, 'outgoing')
-        server.close()
-        proxy.close()
-        console.log('passed')
-    })
+}, function (proxy, done) {
+  console.log('# hello')
+  request.get(proxy, function (err, res, body) {
+    tap(assert.equal, 'body is hello')(body, 'hello')
+    done()
   })
 })
+
+setup(function (req, res) {
+  res.end('goodbye')
+}, function (proxy, done) {
+  console.log('# goodbye')
+  request.get(proxy, function (err, res, body) {
+    tap(assert.equal, 'body is goodbye')(body, 'goodbye')
+    done()
+    tap.end()
+  })
+})
+
+
+
 
